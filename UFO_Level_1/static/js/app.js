@@ -1,7 +1,23 @@
 
-// LOAD TABLE DATA
-// Assign the data from `data.js` to a descriptive variable
+// LOAD TABLE DATA (data.js)
+// Assign data to descriptive variable
 var tableData = data;
+
+// RENDER TABLE (index.html)
+// Get reference to table body <tbody>
+var tbody = d3.select("tbody");
+
+// Loop tableData rows
+tableData.forEach((element) => {
+    // Append one <tr> (table row) for each element (data row)
+    var row = tbody.append("tr");
+    // Loop tableData columns
+    Object.entries(element).forEach(([key, value]) => {
+        // Append one <td> (table cell) per element value (data column)
+        row.append("td").text(value);
+    })
+});
+
 
 // SELECT ELEMENTS
 var form = d3.select("form");
@@ -22,6 +38,8 @@ function datetimeQuery(row) {
 // FILTER FUNCTION
 function runFilter() {
 
+    console.log("Enter filter function");
+
     function datetimeQuery(row) {
         return row.datetime === datetimeInput;
     }
@@ -34,6 +52,19 @@ function runFilter() {
 
     var results = tableData.filter(datetimeQuery);
     console.log(results);
+
+    // Loop tableData rows
+    results.forEach((element) => {
+        // Append one <tr> (table row) for each element (data row)
+        var row = tbody.append("tr");
+        // Loop tableData columns
+        Object.entries(element).forEach(([key, value]) => {
+            // Append one <td> (table cell) per element value (data column)
+            row.append("td").text(value);
+        })
+    });
+
+    console.log("Exit filter function");
 
 }
 
