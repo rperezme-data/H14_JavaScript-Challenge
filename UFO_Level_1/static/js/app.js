@@ -25,7 +25,7 @@ var datetimeForm = d3.select("#datetime");
 var button = d3.select("#filter-btn");
 
 // EVENT HANDLERS
-form.on("submint", runFilter);
+form.on("submit", runFilter);
 datetimeForm.on("change", runFilter);
 button.on("click", runFilter);
 
@@ -38,11 +38,8 @@ function datetimeQuery(row) {
 // FILTER FUNCTION
 function runFilter() {
 
+    // Debug
     console.log("Enter filter function");
-
-    function datetimeQuery(row) {
-        return row.datetime === datetimeInput;
-    }
 
     // Prevent the page from refreshing
     d3.event.preventDefault();
@@ -50,9 +47,24 @@ function runFilter() {
     // Get the value property of the input elements
     var datetimeInput = datetimeForm.property("value");
 
+    function datetimeQuery(row) {
+        return row.datetime === datetimeInput;
+    }
+
+
+
     var results = tableData.filter(datetimeQuery);
     console.log(results);
 
+    // a) delete table
+    // b) if no-value
+    // c) if not-found...
+    
+
+    // RENDER RESULTS TABLE
+    // Clear previous rendered table
+    tbody.html("")
+    
     // Loop tableData rows
     results.forEach((element) => {
         // Append one <tr> (table row) for each element (data row)
@@ -64,6 +76,8 @@ function runFilter() {
         })
     });
 
+    
+    // Debug
     console.log("Exit filter function");
 
 }
