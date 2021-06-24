@@ -6,6 +6,7 @@ var tableData = data;
 // EXPLORE TABLE DATA
 // Get range limits (min, max)
 // View unique values
+// console.log(tableData);  // DEBUG MSG
 
 
 // SELECT ELEMENTS
@@ -50,9 +51,7 @@ function datetimeQuery(row) {
 // FILTER FUNCTION
 function runFilter() {
 
-    
     console.log("Enter filter function");  // DEBUG MSG
-
 
     // Prevent the page from refreshing
     d3.event.preventDefault();
@@ -60,48 +59,65 @@ function runFilter() {
     // Get input values (from elements)
     var datetimeInput = datetimeForm.property('value');
 
-    // Check input (out-of-range values)
-    if (tableData.includes("datetime", datetimeInput)) {
-        console.log("OK");
-    } else {
-        console.log("Search value is out-of-range");
-    }
+    console.log(datetimeInput); // DEBUG MSG
 
+    // Check input (empty elements)
+    if (datetimeInput.length === 0) {
 
-    // GET RESULTS FROM SEARCH CRITERIA
-    var results = tableData.filter((row) => row.datetime === datetimeInput);
-
-  
-    console.log(results);  // DEBUG MSG
-
-
-    // RENDER TO HTML
-    // Clear previous rendered table
-    tbody.html("");
-
-    // Check results (no-results-found)
-    if (results.length === 0) {
-
-        // RENDER ERROR MESSAGE
-        tbody.append('p').text("No results found for your search criteria");
-        console.log("No results found for your search criteria");
-
-    } else {
+        // Clear previous rendered table
+        tbody.html("");
         
-        // RENDER RESULTS TABLE
-        // Loop tableData rows
-        results.forEach((element) => {
-            // Append one <tr> (table row) for each element (data row)
-            var row = tbody.append('tr');
-            // Loop tableData columns
-            Object.entries(element).forEach(([key, value]) => {
-                // Append one <td> (table cell) per element value (data column)
-                row.append('td').text(value);
-            })
-        });
+        // RENDER ERROR MESSAGE
+        tbody.append('p').text("Please enter a search criteria")
+            .style('color', 'orange').style('font-weight', 'bold');
+
+        console.log("Please enter a search criteria");  // DEBUG MSG
+
+    } else {
+
+        // GET RESULTS FROM SEARCH CRITERIA
+        var results = tableData.filter((row) => row.datetime === datetimeInput);
+
+        console.log(results);  // DEBUG MSG
+
+        // RENDER TO HTML
+        // Clear previous rendered table
+        tbody.html("");
+
+        // Check results (no-results-found)
+        if (results.length === 0) {
+
+            // RENDER ERROR MESSAGE
+            tbody.append('p').text("No results found for your search criteria")
+                .style('color', 'orange').style('font-weight', 'bold');
+
+            console.log("No results found for your search criteria");  // DEBUG MSG
+
+        } else {
+
+            // RENDER RESULTS TABLE
+            // Loop tableData rows
+            results.forEach((element) => {
+                // Append one <tr> (table row) for each element (data row)
+                var row = tbody.append('tr');
+                // Loop tableData columns
+                Object.entries(element).forEach(([key, value]) => {
+                    // Append one <td> (table cell) per element value (data column)
+                    row.append('td').text(value);
+                })
+            });
+        }
+
     }
 
-    
+
+    // // Check input (out-of-range values)
+    // if (tableData.includes("datetime", datetimeInput)) {
+    //     console.log("OK");
+    // } else {
+    //     console.log("Search value is out-of-range");
+    // }
+
     console.log("Exit filter function"); // DEBUG MSG
 
 }
