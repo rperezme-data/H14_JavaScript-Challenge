@@ -1,12 +1,20 @@
-
 // LOAD TABLE DATA (data.js)
 // Assign data to descriptive variable
-var tableData = data;
+var completeData = data;
+
 
 // EXPLORE TABLE DATA
-// Get range limits (min, max)
-// View unique values
-// console.log(tableData);  // DEBUG MSG
+// MapReduce
+var countries = completeData.map((row) => row.country);
+var shapes = completeData.map((row) => row.shape);
+
+// Get unique values
+var distinctCountries = [...new Set(countries)];
+var distinctShapes = [...new Set(shapes)];
+
+console.log(distinctCountries);  // DEBUG MSG
+console.log(distinctShapes);  // DEBUG MSG
+
 
 
 // SELECT ELEMENTS
@@ -14,137 +22,102 @@ var tableData = data;
 var tbody = d3.select('tbody');
 
 // Get forms & buttons reference
-var form = d3.select('form');
+var panelForm = d3.select('form');
 var datetimeForm = d3.select('#datetime');
-var button = d3.select('#filter-btn');
+var filterButton = d3.select('#filter-btn');
+var clearButton = d3.select('#clear-btn');
 
 
 // EVENT HANDLERS
-form.on('submit', runFilter);
+panelForm.on('submit', runFilter);
 datetimeForm.on('change', runFilter);
-button.on('click', runFilter);
+filterButton.on('click', runFilter);
+clearButton.on('click', refreshTable);
 
 
-// RENDER COMPLETE TABLE (index.html)
-// Loop tableData rows
-tableData.forEach((element) => {
-    // Append one <tr> (table row) for each element (data row)
-    var row = tbody.append('tr');
-    // Loop tableData columns
-    Object.entries(element).forEach(([key, value]) => {
-        // Append one <td> (table cell) per element value (data column)
-        row.append('td').text(value);
-    })
-});
+// RENDER TABLE FUNCTION
+function renderTable(tableData) {
 
+    console.log("Render Table");  // DEBUG MSG
 
+    // Clear table body
+    tbody.html("");
 
-function datetimeQuery(row) {
-    return row.datetime === datetimeInput;
+    // Loop tableData rows
+    tableData.forEach((element) => {
+        // Append one <tr> (table row) for each element (data row)
+        var row = tbody.append('tr');
+        // Loop tableData columns
+        Object.entries(element).forEach(([key, value]) => {
+            // Append one <td> (table cell) per element value (data column)
+            row.append('td').text(value);
+        })
+    });
 }
 
-// var results = tableData.filter(datetimeQuery);
-//     console.log(results);
+
+// RENDER MESSAGE FUNCTION
+function renderMsg(errorMsg) {
+
+    console.log("Error Message");  // DEBUG MSG
+
+    // Clear table body
+    tbody.html("");
+    // Render error message
+    tbody.append('p').text(errorMsg).style('color', 'orange').style('font-weight', 'bold');
+}
 
 
+// REFRESH TABLE FUNCTION
+function refreshTable() {
 
-// FILTER FUNCTION
+    console.log("Refresh Table");  // DEBUG MSG
+    
+    // Prevent the page from refreshing
+    // d3.event.preventDefault();
+    
+    // Reset input element
+    // datetimeForm.property('value') = [];
+    
+    // Render table (complete data)
+    renderTable(completeData);
+}
+
+
+// FILTER TABLE FUNCTION
 function runFilter() {
 
-    console.log("Enter filter function");  // DEBUG MSG
+    console.log("Filter Table");  // DEBUG MSG
 
     // Prevent the page from refreshing
     d3.event.preventDefault();
-
+    
     // Get input values (from elements)
     var datetimeInput = datetimeForm.property('value');
-
-    console.log(datetimeInput); // DEBUG MSG
-
+    
     // Check input (empty elements)
     if (datetimeInput.length === 0) {
-
-        // Clear previous rendered table
-        tbody.html("");
-        
-        // RENDER ERROR MESSAGE
-        tbody.append('p').text("Please enter a search criteria")
-            .style('color', 'orange').style('font-weight', 'bold');
-
-        console.log("Please enter a search criteria");  // DEBUG MSG
-
+        // Render error message
+        renderMsg("Please enter a search criteria");
+    
     } else {
 
         // GET RESULTS FROM SEARCH CRITERIA
-        var results = tableData.filter((row) => row.datetime === datetimeInput);
-
-        console.log(results);  // DEBUG MSG
-
-        // RENDER TO HTML
-        // Clear previous rendered table
-        tbody.html("");
+        var results = completeData.filter((row) => row.datetime === datetimeInput);
 
         // Check results (no-results-found)
         if (results.length === 0) {
-
-            // RENDER ERROR MESSAGE
-            tbody.append('p').text("No results found for your search criteria")
-                .style('color', 'orange').style('font-weight', 'bold');
-
-            console.log("No results found for your search criteria");  // DEBUG MSG
-
+            // Render error message
+            renderMsg("No results found for your search criteria");
         } else {
-
-            // RENDER RESULTS TABLE
-            // Loop tableData rows
-            results.forEach((element) => {
-                // Append one <tr> (table row) for each element (data row)
-                var row = tbody.append('tr');
-                // Loop tableData columns
-                Object.entries(element).forEach(([key, value]) => {
-                    // Append one <td> (table cell) per element value (data column)
-                    row.append('td').text(value);
-                })
-            });
+            // Render table (filtered data)
+            renderTable(results);
         }
 
     }
 
-
-    // // Check input (out-of-range values)
-    // if (tableData.includes("datetime", datetimeInput)) {
-    //     console.log("OK");
-    // } else {
-    //     console.log("Search value is out-of-range");
-    // }
-
-    console.log("Exit filter function"); // DEBUG MSG
-
 }
 
 
-
-
-// // Search datetime 
-// function datetimeQuery(row) {
-//     return row.datetime === datetime;
-// }
-
-// // Search city 
-// function cityQuery(row) {
-//     return row.city === city;
-// }
-
-
-// // Filter datetime
-// var results1 = data.filter(datetimeQuery);
-// console.log("\nFilter datetime")
-// results1.forEach(result => console.log(result))
-
-// // Filter city
-// var results2 = data.filter(cityQuery);
-// console.log("\nFilter city")
-// results2.forEach(result => console.log(result))
-
-
-// console.log(results);
+// Render table (complete data)
+renderTable(completeData);
