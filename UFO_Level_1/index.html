@@ -28,6 +28,7 @@
     <div class="container">
       <div class="row margin-top-50">
         <div class="col-md-2">
+
           <aside class="filters">
             <div class="panel panel-default">
               <div class="panel-heading">Filter Search</div>
@@ -39,13 +40,28 @@
                         <label for="date">Enter a Date</label>
                         <input class="form-control" id="datetime" type="text" placeholder="1/11/2010">
                       </li>
+                      <!-- <li class="filter list-group-item">
+                        <label for="date">Enter a Date</label>
+                        <input class="form-control" id="datetime" type="text" placeholder="1/11/2010">
+                      </li> -->
                     </ul>
                   </div>
-                  <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
                 </form>
+              </div>
+              <div class="panel panel-footer">
+                <button id="filter-btn" type="button" class="btn btn-success">Filter Table</button>
               </div>
             </div>
           </aside>
+
+          <div class="reset-filter">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <button id="clear-btn" type="button" class="btn btn-info">Clear Filter</button>
+              </div>
+            </div>
+          </div>
+
         </div>
         <div class="col-md-10">
           <div id="table-area" class="">
