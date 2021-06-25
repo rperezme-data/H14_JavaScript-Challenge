@@ -3,24 +3,9 @@
 var completeData = data;
 
 
-// EXPLORE TABLE DATA
-// MapReduce
-var countries = completeData.map((row) => row.country);
-var shapes = completeData.map((row) => row.shape);
-
-// Get unique values
-var distinctCountries = [...new Set(countries)];
-var distinctShapes = [...new Set(shapes)];
-
-console.log(distinctCountries);  // DEBUG MSG
-console.log(distinctShapes);  // DEBUG MSG
-
-
-
 // SELECT ELEMENTS
 // Get table body <tbody> reference
 var tbody = d3.select('tbody');
-
 // Get forms & buttons reference
 var panelForm = d3.select('form');
 var datetimeForm = d3.select('#datetime');
@@ -37,12 +22,8 @@ clearButton.on('click', refreshTable);
 
 // RENDER TABLE FUNCTION
 function renderTable(tableData) {
-
-    console.log("Render Table");  // DEBUG MSG
-
     // Clear table body
     tbody.html("");
-
     // Loop tableData rows
     tableData.forEach((element) => {
         // Append one <tr> (table row) for each element (data row)
@@ -56,11 +37,12 @@ function renderTable(tableData) {
 }
 
 
+// Render table (complete data)
+renderTable(completeData);
+
+
 // RENDER MESSAGE FUNCTION
 function renderMsg(errorMsg) {
-
-    console.log("Error Message");  // DEBUG MSG
-
     // Clear table body
     tbody.html("");
     // Render error message
@@ -70,9 +52,7 @@ function renderMsg(errorMsg) {
 
 // REFRESH TABLE FUNCTION
 function refreshTable() {
-
-    console.log("Refresh Table");  // DEBUG MSG
-    
+       
     // Prevent the page from refreshing
     // d3.event.preventDefault();
     
@@ -86,25 +66,17 @@ function refreshTable() {
 
 // FILTER TABLE FUNCTION
 function runFilter() {
-
-    console.log("Filter Table");  // DEBUG MSG
-
     // Prevent the page from refreshing
     d3.event.preventDefault();
-    
     // Get input values (from elements)
     var datetimeInput = datetimeForm.property('value');
-    
     // Check input (empty elements)
     if (datetimeInput.length === 0) {
         // Render error message
-        renderMsg("Please enter a search criteria");
-    
+        renderMsg("Please enter a search criteria");    
     } else {
-
-        // GET RESULTS FROM SEARCH CRITERIA
+        // Get Results from search criteria
         var results = completeData.filter((row) => row.datetime === datetimeInput);
-
         // Check results (no-results-found)
         if (results.length === 0) {
             // Render error message
@@ -113,11 +85,5 @@ function runFilter() {
             // Render table (filtered data)
             renderTable(results);
         }
-
     }
-
 }
-
-
-// Render table (complete data)
-renderTable(completeData);
