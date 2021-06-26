@@ -12,24 +12,20 @@ var shapes = completeData.map((row) => row.shape);
 var distinctCountries = [...new Set(countries)];
 var distinctShapes = [...new Set(shapes)];
 
-console.log(distinctCountries);  // DEBUG MSG
-console.log(distinctShapes);  // DEBUG MSG
-
+// console.log(distinctCountries);  // DEBUG MSG
+// console.log(distinctShapes);  // DEBUG MSG
 
 
 // SELECT ELEMENTS
 // Get table body <tbody> reference
 var tbody = d3.select('tbody');
-
 // Get forms & buttons reference
 var panelForm = d3.select('form');
-
 var datetimeForm = d3.select('#datetime');
 var cityForm = d3.select('#city');
 var stateForm = d3.select('#state');
 var countryForm = d3.select('#country');
 var shapeForm = d3.select('#shape');
-
 var filterButton = d3.select('#filter-btn');
 var clearButton = d3.select('#clear-btn');
 
@@ -66,6 +62,10 @@ function renderTable(tableData) {
         })
     });
 }
+
+
+// Render table (complete data)
+renderTable(completeData);
 
 
 // RENDER MESSAGE FUNCTION
@@ -113,23 +113,25 @@ function runFilter() {
         shape: shapeForm.property('value')
     };
 
-    console.log(allInput);
+    console.log("Input values: ");  // DEBUG MSG
+    console.log(allInput);  // DEBUG MSG
 
     // ACTIVE FILTERS ARRAY
-
+    // Set initial values
     var filters = [];
     var filtersDict = {};
-
+    // Build array for active filters
     for (var [key, value] of Object.entries(allInput)) {
         if (value !== "") {
             filtersDict[key] = value;
-            filters.push({'key':key, 'value':value});
+            filters.push({'key': key, 'value': value});
         }
     }
 
-    console.log(filters);
-    console.log(filtersDict);
-
+    console.log("Active filters: ");  // DEBUG MSG
+    console.log(filtersDict);  // DEBUG MSG
+    console.log(filters);  // DEBUG MSG
+    
     // Check input (empty elements)
     if (filters.length === 0) {
         // Render error message
@@ -153,6 +155,3 @@ function runFilter() {
 
 }
 
-
-// Render table (complete data)
-renderTable(completeData);
