@@ -37,7 +37,7 @@ countryDropdown.on('change', runFilter);
 shapeDropdown.on('change', runFilter);
 // Buttons
 filterButton.on('click', runFilter);
-clearButton.on('click', refreshTable);
+clearButton.on('click', resetFilter);
 
 
 // RENDER DROPDOWNS
@@ -81,24 +81,6 @@ function renderMsg(errorMsg) {
 }
 
 
-// REFRESH TABLE FUNCTION
-function refreshTable() {
-
-    console.log("Refresh Table");  // DEBUG MSG
-
-    // Prevent the page from refreshing
-    // d3.event.preventDefault();
-
-    // Reset input element
-    // datetimeForm.property('value') = "";
-
-    // Render table (complete data)
-    renderTable(completeData);
-
-    // vs. REFRESH WEBPAGE
-}
-
-
 // FILTER TABLE FUNCTION
 function runFilter() {
     // Prevent the page from refreshing
@@ -118,13 +100,13 @@ function runFilter() {
     // Build array for active filters
     for (var [key, value] of Object.entries(allInput)) {
         if (value !== "") {
-            filters.push({'key': key, 'value': value});
+            filters.push({ 'key': key, 'value': value });
         }
     }
 
     console.log("Active filters: ");  // DEBUG MSG
     console.log(filters);  // DEBUG MSG
-    
+
     // Check input (empty-filter)
     if (filters.length === 0) {
         // Render error message
@@ -133,7 +115,7 @@ function runFilter() {
 
         // GET RESULTS FROM SEARCH CRITERIA
         var results = completeData.filter((row) => filters.every((filter) => row[filter.key] === filter.value));
-        
+
         // Check results (no-results-found)
         if (results.length === 0) {
             // Render error message
@@ -143,4 +125,19 @@ function runFilter() {
             renderTable(results);
         }
     }
+}
+
+
+// RESET FILTER FUNCTION
+function resetFilter() {
+    // Prevent the page from refreshing
+    d3.event.preventDefault();
+    // Reset input elements
+    datetimeForm.property('value', "");
+    cityForm.property('value', "");
+    stateForm.property('value', "");
+    countryDropdown.property('value', "");
+    shapeDropdown.property('value', "");
+    // Render table (complete data)
+    renderTable(completeData);
 }

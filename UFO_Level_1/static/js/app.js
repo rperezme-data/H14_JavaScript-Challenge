@@ -17,7 +17,7 @@ var clearButton = d3.select('#clear-btn');
 panelForm.on('submit', runFilter);
 datetimeForm.on('change', runFilter);
 filterButton.on('click', runFilter);
-clearButton.on('click', refreshTable);
+clearButton.on('click', resetFilter);
 
 
 // RENDER TABLE FUNCTION
@@ -50,20 +50,6 @@ function renderMsg(errorMsg) {
 }
 
 
-// REFRESH TABLE FUNCTION
-function refreshTable() {
-       
-    // Prevent the page from refreshing
-    // d3.event.preventDefault();
-    
-    // Reset input element
-    // datetimeForm.property('value') = [];
-    
-    // Render table (complete data)
-    renderTable(completeData);
-}
-
-
 // FILTER TABLE FUNCTION
 function runFilter() {
     // Prevent the page from refreshing
@@ -88,4 +74,15 @@ function runFilter() {
             renderTable(results);
         }
     }
+}
+
+
+// RESET FILTER FUNCTION
+function resetFilter() {
+    // Prevent the page from refreshing
+    d3.event.preventDefault();
+    // Reset input elements
+    datetimeForm.property('value', "");
+    // Render table (complete data)
+    renderTable(completeData);
 }
