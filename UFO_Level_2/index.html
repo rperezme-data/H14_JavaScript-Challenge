@@ -36,28 +36,34 @@
                 <form>
                   <div class="form-group">
                     <ul class="list-group" id="filters">
-                      
+
                       <li class="filter list-group-item">
                         <label for="date">Enter a Date</label>
-                        <input class="form-control" id="datetime" type="text" placeholder="1/11/2010">
+                        <input class="form-control" id="datetime" type="text" placeholder="1/1/2010">
                       </li>
                       <li class="filter list-group-item">
                         <label for="city">Enter a City</label>
                         <input class="form-control" id="city" type="text" placeholder="benton">
-                      </li> 
+                      </li>
                       <li class="filter list-group-item">
                         <label for="state">Enter a State</label>
                         <input class="form-control" id="state" type="text" placeholder="ar">
                       </li>
+
                       <li class="filter list-group-item">
-                        <label for="country">Enter a Country</label>
-                        <input class="form-control" id="country" type="text" placeholder="us">
-                      </li>
+                        <label for="country-select">Select a Country</label>
+                        <!-- Select Dropdown -->
+                        <select name="country" class="dropdown-control" id="country-drop">
+                          <option value="" autofocus>-- None --</option>
+                        </select>
+
                       <li class="filter list-group-item">
-                        <label for="shape">Enter a Shape</label>
-                        <input class="form-control" id="shape" type="text" placeholder="circle">
+                        <label for="shape-select">Select a Shape</label>
+                        <!-- Select Dropdown -->
+                        <select name="shape" class="dropdown-control" id="shape-drop">
+                          <option value="" autofocus>-- None --</option>
+                        </select>
                       </li>
-                      
                     </ul>
                   </div>
                 </form>
