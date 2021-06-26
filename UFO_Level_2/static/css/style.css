@@ -142,6 +142,11 @@ select {
   color: #8e979f;
 }
 
+.dropdown-control {
+  color: black
+}
+
+
 /* media queries which will only be activated at specific screen sizes */
 @media (max-width: 800px) {
   #table-area td {
