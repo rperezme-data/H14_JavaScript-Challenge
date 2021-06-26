@@ -75,8 +75,10 @@ function runFilter() {
         // Render error message
         renderMsg("Please enter a search criteria");    
     } else {
-        // Get Results from search criteria
+
+        // GET RESULTS FROM SEARCH CRITERIA
         var results = completeData.filter((row) => row.datetime === datetimeInput);
+        
         // Check results (no-results-found)
         if (results.length === 0) {
             // Render error message
