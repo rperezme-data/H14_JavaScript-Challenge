@@ -26,4 +26,4 @@ This website was built using HTML, CSS & JavaScript. Complete dataset table is r
 ### Screenshot
 ![WebApp_Screenshot](Screenshots/WebPage.png)
 
-### [Let's search for UFO!](https://rperezme-data.github.io/H14_JavaScript-Challenge/UFO_Level_2/)
+### [Let's search for UFO!](https://rperezme-data.github.io/H14_JavaScript-challenge/UFO_Level_2/)
