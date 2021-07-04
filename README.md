@@ -1,4 +1,4 @@
-# JavaScript-Challenge
+# JavaScript-challenge
 ## Webpage: JavaScript and DOM Manipulation
 
 ### Description
