@@ -1,5 +1,4 @@
-# JavaScript-challenge
-## Web App: JavaScript and DOM Manipulation
+# Web App: JavaScript and DOM Manipulation
 
 ### Description
 HTML webpage that creates a table dynamically based upon a given dataset. The application allows users to filter the table data for specific values.
